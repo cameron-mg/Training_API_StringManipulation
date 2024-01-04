@@ -1,0 +1,3 @@
+Words with hyphens are counted as one word.
+Commas and hyphens count towards characters of a word.
+All words will be in english making the longest word 45 letters.

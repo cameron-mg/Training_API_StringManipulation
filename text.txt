@@ -1,4 +1,0 @@
-Hello my name is Cameron Mackay-Grant. This is a test
-file for the DominAPI that's going to work out how
-many words are typed here, and what the average word sizes
-are.
