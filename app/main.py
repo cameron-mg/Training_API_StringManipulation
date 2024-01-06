@@ -1,28 +1,32 @@
 # docker build -t dominimage .
 # docker run -d --name containerapi -p 80:80 dominimage
 from fastapi import FastAPI, File, UploadFile
-# from fastapi_cache2 import *
+from cachetools import cached, TTLCache
+import time
+import string
 import re
 
 app = FastAPI()
 
+# Root Method (Testing Host)
 @app.get('/')
 def root():
     return {"Root" : "Hello"}
 
+# Upload Method (API)
 @app.post('/upload/')
 async def upload(file: UploadFile = File(...)):
     text = await file.read()
     return lengthCalc(str(text))
 
-
+@cached(cache=TTLCache(maxsize=1024*1000*200, ttl=1200))
 def lengthCalc(text):
-    import string
+    time.sleep(2) # If sleep doesnt occur data is returned from cache
 
     # Cleaning all whitespace characters and punctuation out of the string and splitting words
-    # cleanText = re.sub(r"\\n", "", text)
     punctuationToClean = string.punctuation.replace("-","").replace("'","").replace("&","")
     cleanText = text.translate(str.maketrans("", "", punctuationToClean)).split() # removes punctuation and splits on whitespace
+
     # Declaring counting vars
     lengths = {} # define dictionary used to store length values
     count = 0 # total word count
