@@ -2,9 +2,7 @@
 # docker run -d --name containerapi -p 80:80 dominimage
 from fastapi import FastAPI, File, UploadFile
 from cachetools import cached, TTLCache
-import time
-import string
-import re
+import time, string, re
 
 app = FastAPI()
 
@@ -19,7 +17,7 @@ async def upload(file: UploadFile = File(...)):
     text = await file.read()
     return lengthCalc(str(text))
 
-@cached(cache=TTLCache(maxsize=1024*1000*200, ttl=1200))
+@cached(cache=TTLCache(maxsize=1024, ttl=1200))
 def lengthCalc(text):
     time.sleep(2) # If sleep doesnt occur data is returned from cache
 
