@@ -42,6 +42,7 @@ def lengthCalc(text):
     averageWordLength = charcount / count # output: average length of words
     mostFrequentCount = max(lengths.values()) # output: most frequent word lengths
     mostFrequentCountLengths = [key for key, value in lengths.items() if value == mostFrequentCount] # output: word lengths of most frequent lengths
+    lengths = dict(sorted(lengths.items())) # output: sorted array of word lengths
 
     return {"Word_Count" : count, 
             "Avg_Length" : averageWordLength, 
