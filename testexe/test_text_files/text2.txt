@@ -1,2 +1,2 @@
-Hello my name is cameron this is the second test file for the DominAPI. This test file is being used to test if the caching system works as intended.
+Hello my name is cameron this is the second test file for the DominAPI. This test file is testing if the caching system works as intended. 
 :)
