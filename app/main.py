@@ -15,14 +15,14 @@ def root():
 @app.post('/upload/')
 async def upload(file: UploadFile = File(...)):
     text = await file.read()
-    return lengthCalc(str(text))
+    return lengthCalc(text.decode())
 
 @cached(cache=TTLCache(maxsize=1024, ttl=1200))
 def lengthCalc(text):
-
     # Cleaning all whitespace characters and punctuation out of the string and splitting words
-    punctuationToClean = string.punctuation.replace("-","").replace("'","").replace("&","")
-    cleanText = text.translate(str.maketrans("", "", punctuationToClean)).split() # removes punctuation and splits on whitespace
+    cleanText = text.strip()
+    punctuationToClean = string.punctuation.replace("-","").replace("'","").replace("&","").replace("/","")
+    cleanText = cleanText.translate(str.maketrans("", "", punctuationToClean)).split() # removes punctuation and splits on whitespace
 
     # Declaring counting vars
     lengths = {} # define dictionary used to store length values
@@ -39,10 +39,10 @@ def lengthCalc(text):
         else:
             lengths[wordLength] = 1
 
+    lengths = dict(sorted(lengths.items())) # output: sorted array of word lengths
     averageWordLength = charcount / count # output: average length of words
     mostFrequentCount = max(lengths.values()) # output: most frequent word lengths
     mostFrequentCountLengths = [key for key, value in lengths.items() if value == mostFrequentCount] # output: word lengths of most frequent lengths
-    lengths = dict(sorted(lengths.items())) # output: sorted array of word lengths
 
     return {"Word_Count" : count, 
             "Avg_Length" : averageWordLength, 
