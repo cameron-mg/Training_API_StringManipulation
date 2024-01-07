@@ -1,3 +1,4 @@
+A word is any sequence of characters with whitespace separating it from others.
+Most punctuation has been removed other than that found in words and & symbols, the latter counting as a 1 letter word.
 Words with hyphens are counted as one word.
-Commas and hyphens count towards characters of a word.
-All words will be in english making the longest word 45 letters.
+Apostrophes, hyphens and slashes count towards character count of a word.
