@@ -1,12 +1,12 @@
-import requests
+import requests, os
 
-# url = 'http://127.0.0.1:80/upload/' # docker image url
-url = 'http://127.0.0.1:8000/upload/' # uvicorn local test url
-filepath = input("Please enter the absolute path of the file you would like to analyze: ")
-
+url = 'http://127.0.0.1:80/upload/' # docker image url
+# url = 'http://127.0.0.1:8000/upload/' # uvicorn local test url
+filename = input("Please enter the name of the file in test_files you would like to analyze: ")
+directory = './test_files'
 try:
     # POST request and read data
-    files = {'file': open(f'{filepath}', 'r')}
+    files = {'file': open(os.path.join(directory, filename), 'r')}
     response = requests.post(url, files=files) # API call
     data = response.json()
 

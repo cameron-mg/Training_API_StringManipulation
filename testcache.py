@@ -1,8 +1,8 @@
 import requests, time, os
 
-# url = 'http://127.0.0.1:80/upload/' # docker image url
-url = 'http://127.0.0.1:8000/upload/' # uvicorn local test url
-directory = './test_text_files'
+url = 'http://127.0.0.1:80/upload/' # docker image url
+# url = 'http://127.0.0.1:8000/upload/' # uvicorn local test url
+directory = './test_files'
 
 for filename in os.listdir(directory): # looping through files in test directory
     for i in range(2): # loop twice to check once without cache and once with
