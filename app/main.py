@@ -19,7 +19,6 @@ async def upload(file: UploadFile = File(...)):
 
 @cached(cache=TTLCache(maxsize=1024, ttl=1200))
 def lengthCalc(text):
-    time.sleep(2) # If sleep doesnt occur data is returned from cache
 
     # Cleaning all whitespace characters and punctuation out of the string and splitting words
     punctuationToClean = string.punctuation.replace("-","").replace("'","").replace("&","")
