@@ -1,4 +1,6 @@
-This API is developed to calculate metrics based on string lengths within a text file.
+This API is developed to calculate and return metrics based on string lengths within a text file.
+
+**The API can be used by opening 127.0.0.1/docs in a web browser after the container is running (step 5), this can select files outside of '/test_files'
 
 To use the api follow these steps:
 
@@ -15,4 +17,6 @@ To use the api follow these steps:
 
 8: Running 'python testcache.py' will loop through each file in '/test_files' and show the difference in execution time between cached and uncached.
 9: Running 'python runapi.py' will ask you to type the name of a file in '/test_files'. This returns info in the format specified on the task spec.
-**Alternatively the API can be used by opening 127.0.0.1/docs in a web browser after the container is running, this can select files outside of '/test_files'
+
+
+

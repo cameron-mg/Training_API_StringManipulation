@@ -2,9 +2,10 @@
 # docker run -d --name containerapi -p 80:80 dominimage
 from fastapi import FastAPI, File, UploadFile
 from cachetools import cached, TTLCache
-import time, string, re
+import time, string, re, hashlib
 
 app = FastAPI()
+cache = TTLCache(maxsize=1024, ttl=1800) # 1KB cache, auto-delete after 30mins
 
 # Root Method (Testing Host)
 @app.get('/')
@@ -16,12 +17,26 @@ def root():
 async def upload(file: UploadFile = File(...)):
     try:
         text = await file.read()
-        return lengthCalc(text.decode())
+        checksum = get_checksum(text.decode()) # generate checksum
+
+        # check data is in cache, return if present
+        if checksum in cache:
+            return cache[checksum]
+        
+        # compute and store in cache, return data
+        data = lengthCalc(text.decode())
+        cache[checksum] = data
+        return data
     
     except Exception as e:
         return e
 
-@cached(cache=TTLCache(maxsize=1024, ttl=1200))
+
+# Checksum Generation Method
+def get_checksum(x):
+    return hashlib.sha256(x.encode()).hexdigest()
+
+# Metric Calculation Method
 def lengthCalc(text):
     try:
         # Cleaning all whitespace characters and punctuation out of the string and splitting words
